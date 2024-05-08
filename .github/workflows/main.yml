@@ -17,7 +17,7 @@ jobs:
         run: docker build -t pollquest-question-service .
 
       - name: Tag Docker image
-        run: docker tag pollquest-ui deepankar23jdockerhub/pollquest-ui:latest
+        run: docker tag pollquest-question-service deepankar23jdockerhub/pollquest-question-service:latest
 
       - name: Log in to Docker registry
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
