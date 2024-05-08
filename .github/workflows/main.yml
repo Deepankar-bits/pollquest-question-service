@@ -1,0 +1,26 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dockerize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t pollquest-question-service .
+
+      - name: Tag Docker image
+        run: docker tag pollquest-ui deepankar23jdockerhub/pollquest-ui:latest
+
+      - name: Log in to Docker registry
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Push Docker image to registry
+        run: docker push deepankar23jdockerhub/pollquest-question-service:latest
