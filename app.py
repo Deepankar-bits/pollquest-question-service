@@ -2,15 +2,16 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import requests
 from urllib.parse import urlparse, parse_qs
-BACKEND_URL = "https://httpbin.org/get"
+BACKEND_URL = "http://localhost:8008/pollquest-service/api/v1"
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed_path = urlparse(self.path)
         question_id = parsed_path.path.split('/')[-1]
-
-        #response = requests.get(f"{BACKEND_URL}/data/{question_id}")
-        response = requests.get(f"{BACKEND_URL}")
+        print(question_id, flush = True) 
+        #print(endl)
+        response = requests.get(f"{BACKEND_URL}/questions?id={question_id}")
+        #response = requests.get(f"{BACKEND_URL}")
 
         self.send_response(response.status_code)
         self.send_header('Content-type', 'application/json')
@@ -41,8 +42,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 def run(server_class=HTTPServer, handler_class=RequestHandler, port=8080):
     server_address = ('', port)
+    print("hello one", flush = True) 
     httpd = server_class(server_address, handler_class)
-    print(f"Server running on port {port}")
+    print(f"Server running on port {port}", flush = True)
     httpd.serve_forever()
 
 if __name__ == '__main__':
