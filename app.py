@@ -82,10 +82,10 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             if response.status_code == 200:
                 self.send_response(200)
-                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-type', 'application/text')
                 self.end_headers()
                 logger.info("Response received from backend service:")
-                logger.info(response.json())  # Log the response
+                logger.info(response.text)
                 self.wfile.write(response.content)
             else:
                 self.send_error(response.status_code)
