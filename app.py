@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-BACKEND_URL = "http://pollquest-service.default.svc.cluster.local:8008/pollquest-service/api/v1"
+BACKEND_URL = "http://localhost:8008/pollquest-service/api/v1"
 
 
 class RequestHandler(BaseHTTPRequestHandler):
